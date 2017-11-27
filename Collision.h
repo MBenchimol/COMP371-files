@@ -6,21 +6,26 @@
 #include "..\glm\glm.hpp"
 #include <vector>
 
-class Sphere{
+class CollisionSphere{
 public:
 	glm::vec3 centerPos;
 	float radius;
 
-	bool isColliding(Sphere s){
-		if (s.is)
+	CollisionSphere(glm::vec3 center, float rad);
+
+	bool isColliding(CollisionSphere s){
 		float distance = glm::sqrt(glm::pow((centerPos.x - s.centerPos.x), 2) + glm::pow((centerPos.y - s.centerPos.y), 2) + glm::pow((centerPos.z - s.centerPos.z), 2));
 		if (distance <= radius + s.radius){
 			return true;
 		}
 		return false;
-
 	}
 };
+
+CollisionSphere::CollisionSphere(glm::vec3 center, float rad){
+	this->centerPos = center;
+	this->radius = rad; //building => glm::sqrt(2* glm::pow(sidelenght,2))
+}
 
 /*
 Each object (camera, people, buildings) will have bounding spheres. each time a new object is created, push an equivalent bounding sphere into a vector.
